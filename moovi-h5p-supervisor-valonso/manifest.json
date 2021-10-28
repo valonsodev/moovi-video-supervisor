@@ -1,0 +1,31 @@
+{
+  "name": "Moovi H5P-video Supervisor by Valonso",
+  "version": "1.0",
+  "description": "Pepa por favor no pongas videos de 25 minutos",
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/eye_large_logo.png",
+      "32": "images/eye_large_logo.png",
+      "48": "images/eye_large_logo.png",
+      "128": "images/eye_large_logo.png"
+    }
+  },
+  "icons": {
+    "16": "images/eye_large_logo.png",
+    "32": "images/eye_large_logo.png",
+    "48": "images/eye_large_logo.png",
+    "128": "images/eye_large_logo.png"
+  },
+  "permissions": ["activeTab", "declarativeContent", "storage", "contextMenus"],
+  "background": {
+    "scripts": ["popup.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.uvigo.gal/*"],
+      "js": ["jquery.js", "moovi-video-content-script.js"]
+    }
+  ],
+  "manifest_version": 2
+}
