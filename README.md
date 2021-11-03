@@ -23,6 +23,7 @@ Es posible que este método no funcione por un problema de compatibilidad a la h
 
 <br>
 ## GLOSSARY
+<br>
 | Term           | Definition|
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Interaction    | Each of the popups that appear during video play and have to be completed.                                                                                            |
