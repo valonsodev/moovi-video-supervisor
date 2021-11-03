@@ -23,7 +23,7 @@ Es posible que este método no funcione por un problema de compatibilidad a la h
 
 <br>
 ## GLOSSARY
-| Term           | Definition                                                                                                                                                            |
+| Term           | Definition|
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Interaction    | Each of the popups that appear during video play and have to be completed.                                                                                            |
 | Seekbar        | Circular visual elements that display on top of each video's play bar that visually indicate starting time of each interaction                                        |
