@@ -1,16 +1,4 @@
     console.log("Starting content-script")
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-
-    function GetSortOrder(prop, prop2) {
-        return function (a, b) {
-            if (a[prop][prop2] > b[prop][prop2]) {
-                return 1;
-            } else if (a[prop][prop2] < b[prop][prop2]) {
-                return -1;
-            }
-            return 0;
-        }
-    }
     var video = undefined;
     var seekbar_array = []
     $('iframe').on('load', async function () {
@@ -34,14 +22,29 @@
                                     script_text = script.innerText.slice(script.innerText.indexOf("{", 0))
 
 
-                                    return $.map(JSON.parse(Object.values(JSON.parse(script_text.slice(0, script_text.lastIndexOf(";"))).contents)[0].jsonContent).interactiveVideo.assets.interactions.sort(GetSortOrder("duration", "from")), function (interaction, index) {
+                                    return $.map(JSON.parse($.map((JSON.parse(script_text.slice(0, script_text.lastIndexOf(";"))).contents), function (c, index) {
+                                        if (c.hasOwnProperty("jsonContent")) {
+                                            return c.jsonContent;
+                                        }
+                                    })).interactiveVideo.assets.interactions.sort((a, b) =>
+                                        /*  
+                                        Function that returns a JSON object ordered based on a nested property.
+                                        In this case ["duration"]["from"] which refers to the first second of each interaction.
+                                        */
+                                        {
+                                            if (a.duration.from > b.duration.from) {
+                                                return 1;
+                                            } else if (a.duration.from < b.duration.from) {
+                                                return -1;
+                                            }
+                                            return 0;
+                                        }), function (interaction, index) {
                                         if (interaction.libraryTitle == "True/False Question") {
                                             true_answer = interaction.action.params.correct
-                                            if (true_answer == "true"){
-                                                true_answer="Verdadero"
-                                            }
-                                            else{
-                                                true_answer= "Falso"
+                                            if (true_answer == "true") {
+                                                true_answer = "Verdadero"
+                                            } else {
+                                                true_answer = "Falso"
                                             }
                                             return {
                                                 "question_number": index,
