@@ -22,6 +22,7 @@ Después de esto cerramos y volvemos a abrir Chrome y volveremos a ir a la pági
 Es posible que este método no funcione por un problema de compatibilidad a la hora de comprimirse el archivo, si no funciona te recomiendo probar el modo 1.~~
 
 <br>
+
 ## GLOSSARY
 
 | Term           | Definition|
