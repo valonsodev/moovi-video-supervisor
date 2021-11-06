@@ -58,7 +58,7 @@ since we have nested iframes we do it twice to find our main *video* element :
 ```js
 $("iFrame").contents().find("iframe").contents().find("video")
 ```
-###### Further explanation is provided in each file's comments.
+###### Further explanation will be provided in each file's comments.
 
 ## El diablo:
 ```js

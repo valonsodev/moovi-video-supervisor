@@ -4,7 +4,7 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
-
+/test-solver/
 /tests
 node_modules/
 .history/

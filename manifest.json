@@ -1,7 +1,7 @@
 {
-  "name": "Moovi H5P-video Supervisor by Valonso",
-  "version": "2.0",
-  "description": "Pepa por favor no pongas videos de 25 minutos",
+  "name": "Moovi H5P-video Supervisor by valonso",
+  "version": "3.0",
+  "description": "Extensión para poder manipular y obtener las respuestas de los videos interactivos H5P de moovi.uvigo.gal.",
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -17,7 +17,7 @@
     "48": "images/eye_large_logo.png",
     "128": "images/eye_large_logo.png"
   },
-  "permissions": ["activeTab", "declarativeContent", "storage", "contextMenus"],
+  "permissions": ["activeTab"],
   "background": {
     "scripts": ["popup.js"]
   },
