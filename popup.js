@@ -187,7 +187,9 @@ chrome.tabs.query({
 
 
                                     } else {
-                                        question_answer.appendChild(document.createTextNode("Invalid question type"))
+
+
+                                        question_answer.appendChild(document.createTextNode(question.answer))
                                     }
                                     question_div.appendChild(question_answer)
                                     document.getElementById("interface_wrapper").appendChild(question_div)

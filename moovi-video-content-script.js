@@ -2,7 +2,7 @@ var injected_h5p_setter = `
 var h5p_tries = 0;
 function seth5p(){
 h5p_tries += 1
-if (window && h5p_tries<=20) {
+if (window && h5p_tries<=60) {
         if (window.h5player.H5PIntegration) {
             console.log("Se ha encontrado un objeto h5p válido")
             document.dispatchEvent(new CustomEvent('h5p_updated', { detail: JSON.stringify(window.h5player.H5PIntegration) }));
@@ -111,8 +111,27 @@ chrome.runtime.onMessage.addListener(
                                     })
                                 }
 
+                            } else {
+                                return {
+                                    "question_number": index,
+                                    "type": `UNKNOWN_QUESTION_TYPE_${interaction.libraryTitle}`,
+                                    "answer": `Send me this text at valonsodev@gmail.com with subject NEW QUESTION TYPE or to whatsapp --> ${interaction.action} / libraryTitle(${interaction.libraryTitle})`
+                                }
 
                             }
+                            // else if (interaction.libraryTitle == "Single Choice Set") {
+                            //     return {
+                            //         "question_number": index,
+                            //         "type": "single_choice",
+                            //         "answer": $.map(interaction.action.params.questions, function (question) {
+                            //             return question.match(/\*\S*\*/g).map(function (str) {
+                            //                 return str.slice(1, -1)
+                            //             })
+                            //         })
+                            //     }
+
+
+                            // }
 
                         }),
                         video_url: `${h5p_content.contentUrl}/${h5p_jsoncontent.interactiveVideo.video.files[0].path}`,
