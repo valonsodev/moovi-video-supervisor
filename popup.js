@@ -6,7 +6,12 @@ chrome.tabs.query({
     active: true,
     currentWindow: true
 }, function (tabs) {
-
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = `${window.location.origin}/popupstyles.css`;
+    link.id = "styles"
+    document.head.appendChild(link)
     if (tabs[0].url && !(tabs[0].url.includes("chrome://"))) {
         console.log(tabs)
         if (tabs && tabs[0].url.includes("moovi.uvigo.gal")) {
@@ -17,13 +22,17 @@ chrome.tabs.query({
 
                     }, function (result) {
                         if (chrome.runtime.lastError) {
+                            document.getElementById("interface_wrapper").remove()
+
                             var unvalid_h1 = document.createElement("h1")
 
                             unvalid_h1.className = "unvalid"
                             unvalid_h1.style = "white-space: pre-line"
-
-                            unvalid_h1.appendChild(document.createTextNode(`Error de conexión con el script. \n Prueba a recargar la página.`))
+                            unvalid_h1.appendChild(document.createTextNode(`Error de conexión con el script. \n Si esto no se soluciona solo, prueba a recargar la página.`))
                             document.body.appendChild(unvalid_h1)
+                            setTimeout(function () {
+                                location.reload()
+                            }, 1000);
                             console.log("Message connection error")
                         } else {
                             if (!result.loaded) {
@@ -41,6 +50,7 @@ chrome.tabs.query({
                                 console.log(result)
                                 var playback_div = document.createElement("div")
                                 playback_div.id = "playback_div"
+                                playback_div.className += " removable"
                                 var input_number = document.createElement("input")
                                 input_number.type = "number"
                                 input_number.id = "input-number"
@@ -80,6 +90,7 @@ chrome.tabs.query({
                                 result.seekbar_array.map(function (seekbar_time_value, iteration) {
                                     var button = document.createElement("button")
                                     button.id = `button_${iteration+1}`
+                                    button.className += " removable"
                                     button.appendChild(document.createTextNode(`Ir a la pregunta N\u00BA ${iteration+1}`))
                                     for (let i = 0; i < 2; i++) {
                                         button.appendChild(document.createElement("span"))
@@ -116,6 +127,7 @@ chrome.tabs.query({
 
                                 var link_div = document.createElement("div")
                                 link_div.id = "link_div"
+                                link_div.className += " removable"
                                 var button = document.createElement("button")
                                 button.id = "video_link"
                                 button.className = "link_button"
@@ -141,16 +153,21 @@ chrome.tabs.query({
 
                                 }
                                 document.getElementById(`answers_button`).onclick = function () {
-                                    Array.from(document.getElementsByClassName("question_div")).map(function (div) {
-                                        div.classList.add('shaking');
-                                    })
-                                    setTimeout(function () {
-                                        Array.from(document.getElementsByClassName("question_div")).map(function (div) {
-                                            div.classList.remove('shaking')
-                                        })
-                                    }, 1000);
-
-
+                                    if (!new_window) {
+                                        var new_window = window.open("",
+                                            "Answers",
+                                            "width=400,height=400"
+                                        );
+                                        new_window.document.title = "Answers"
+                                        new_window.document.body = (document.body)
+                                        new_window.document.head.appendChild(link)
+                                        const elements = new_window.document.getElementsByClassName("removable");
+                                        while (elements.length > 0) {
+                                            elements[0].parentNode.removeChild(elements[0]);
+                                        }
+                                    } else {
+                                        new_window.focus()
+                                    }
                                 }
 
                                 result.answers.map(function (question, iteration) {
@@ -183,7 +200,7 @@ chrome.tabs.query({
                                             ul_answer.appendChild(document.createTextNode(ans))
                                             answer_list.appendChild(ul_answer)
                                         })
-                                        question_div.appendChild(answer_list)
+                                        question_answer.appendChild(answer_list)
 
 
                                     } else {
@@ -197,9 +214,6 @@ chrome.tabs.query({
 
 
                                 })
-                                var span = document.createElement("span")
-                                span.className = "filler"
-                                document.getElementById("interface_wrapper").appendChild(span)
 
 
 
@@ -212,6 +226,8 @@ chrome.tabs.query({
 
 
             } else {
+                document.getElementById("interface_wrapper").remove()
+
                 var unvalid_h1 = document.createElement("h1")
 
                 unvalid_h1.className = "unvalid"
@@ -228,6 +244,8 @@ chrome.tabs.query({
                 console.log("Your url doesn't have h5p in it")
             }
         } else {
+            document.getElementById("interface_wrapper").parentNode.remove()
+
             var unvalid_h1 = document.createElement("h1")
 
             unvalid_h1.className = "unvalid"
@@ -237,9 +255,11 @@ chrome.tabs.query({
         }
     } else {
 
+        document.getElementById("interface_wrapper").parentNode.remove()
 
         var unvalid_h1 = document.createElement("h1")
         unvalid_h1.className = "unvalid"
+
         unvalid_h1.appendChild(document.createTextNode(`Estas en un dominio chrome://`))
         document.body.appendChild(unvalid_h1)
         console.log("Estas en un dominio privado de chrome")

@@ -1,0 +1,416 @@
+@import url("https://fonts.googleapis.com/css2?family=Iceland&display=swap");
+* {
+  padding: 0;
+  border: 2px solid rgb(107, 107, 107);
+  border-bottom: 0;
+  max-height: 10000px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+.filler {
+  height: 30px;
+}
+.shaking {
+  animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-2px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(4px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-8px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(8px, 0, 0);
+  }
+}
+.question_answer {
+  margin-bottom: 50px;
+}
+
+.question_div {
+  text-align: center;
+  border-bottom: 2px solid white;
+  border-top: 4px solid #03e9f4;
+
+  overflow: scroll;
+  margin: 10px;
+  margin-top: 0;
+  width: 100%;
+  background: rgb(53, 53, 53);
+  overflow: visible;
+}
+.question_type {
+  border: white !important;
+}
+
+.interface_wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+
+ul {
+  list-style-type: circle;
+  border: none;
+  margin: 0px;
+}
+li {
+  border: none;
+  padding-top: 0px;
+  margin-top: 0px;
+
+  margin-bottom: 10px;
+}
+
+li::marker {
+  content: "";
+  color: white;
+}
+body,
+.interface_wrapper,
+#link_div {
+  position: relative;
+
+  justify-content: center;
+  min-width: 300px;
+  border: none;
+  margin: 10px 10px;
+  overflow: visible;
+  display: grid;
+  align-items: center;
+  background: #050801;
+  font-size: large;
+  font-family: "Iceland", cursive;
+  font-weight: bold;
+}
+body {
+  height: 100%;
+  margin: 0 10px;
+}
+
+body > * > * {
+  font-size: larger;
+
+  border: none;
+  font-family: "Iceland", cursive;
+  font-weight: bold;
+}
+body > * > * > * {
+  font-size: large;
+
+  border: none;
+  font-family: "Iceland", cursive;
+  font-weight: bold;
+}
+.interface_wrapper {
+  margin-left: 0px;
+  position: absolute;
+  display: grid;
+  place-items: center;
+}
+#playback_div {
+  width: 100%;
+  overflow: visible;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  place-content: center;
+  align-content: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#form_button {
+  text-align: center;
+  border-radius: 20px;
+  font-size: large;
+  width: 40%;
+  border: 2px solid #03e9f4;
+  padding: 12px 10px 12px 10px;
+  animation: rainbow 4s steps(36) infinite;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.question_div {
+  color: white;
+}
+input {
+  border: 2px solid #03e9f4;
+
+  text-align: center;
+  position: relative;
+  display: grid;
+  place-self: center;
+  justify-content: center;
+  place-content: center;
+  align-content: center;
+  padding: 12px 12px;
+  width: 50%;
+  margin: 1vw 1vw 12 0;
+  border-radius: 20px;
+  background: white;
+  color: #03e9f4;
+  text-decoration: none;
+  outline: none;
+  animation: rainbow 4s steps(36) infinite;
+
+  overflow: visible;
+}
+input::placeholder {
+  padding: 12px 12px;
+
+  background: rgb(255, 255, 255);
+  color: #03e9f4;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  animation: rainbow 4s steps(36) infinite;
+
+  overflow: hidden;
+}
+h1 {
+  text-align: center;
+  background: none !important;
+  border-bottom: 2px solid white;
+}
+.link_button > span {
+  border: none;
+}
+button {
+  position: relative;
+  display: inline-block;
+  padding: 12px 15px;
+  margin: 22px 5px;
+  background: inherit;
+  color: #03e9f4;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 2px;
+  animation: rainbow 4s steps(36) infinite;
+
+  overflow: hidden;
+}
+
+h1 {
+  position: relative;
+  display: inline-block;
+  padding: 12px 15px !important;
+  margin: 12px 5px !important;
+  background: inherit;
+  color: #03e9f4;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 2px;
+  animation: rainbow 4s steps(36) infinite;
+
+  overflow: hidden;
+}
+.unvalid {
+z-index: 100;
+  display: inline-block ;
+  padding: 12px 15px !important;
+  margin: 12px 5px !important;
+  background: none;
+  color: #03e9f4;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 2px;
+  animation: rainbow 4s steps(36) infinite;
+
+}
+button:hover {
+  background: #03e9f4;
+  color: #050801;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
+    0 0 200px #03e9f4;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+
+button:active {
+  transform: translateY(20px);
+}
+
+button span {
+  position: absolute;
+  display: block;
+}
+button span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: animate1 2s linear infinite;
+}
+
+button span:nth-child(2) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: animate2 2s linear infinite;
+  animation-delay: 1s;
+}
+
+/* ANIMATIONS */
+@keyframes animate1 {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes animate2 {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+@-webkit-keyframes rainbow {
+  from {
+    -webkit-filter: hue-rotate(10deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes rainbow {
+  from {
+    -webkit-filter: hue-rotate(10deg);
+    filter: hue-rotate(10deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(360deg);
+    filter: hue-rotate(360deg);
+  }
+}
+
+.link_button:nth-child(1) {
+  filter: hue-rotate(270deg);
+}
+.link_button:nth-child(2) {
+  -webkit-animation: rainbow 4s steps(36) infinite;
+  filter: hue-rotate(110deg);
+}
+.link_button span {
+  position: absolute;
+  display: block;
+}
+.link_button span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: custom_border1 1s linear infinite;
+}
+@keyframes custom_border1 {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+.link_button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: custom_border2 1s linear infinite;
+  animation-delay: 0.5s;
+}
+@keyframes custom_border2 {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+.link_button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: custom_border3 1s linear infinite;
+}
+@keyframes custom_border3 {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+.link_button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: custom_border4 1s linear infinite;
+  animation-delay: 0.5s;
+}
+@keyframes custom_border4 {
+  0% {
+    bottom: -100%;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+
+#link_div {
+  overflow: visible;
+  background: none;
+  display: flex;
+  margin: 0;
+  width: 100%;
+}
+.link_button {
+  margin: 12px 12px;
+}
