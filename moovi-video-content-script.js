@@ -57,7 +57,6 @@ document.addEventListener('h5p_updated', function (e) {
     } else if (h5p_jsoncontent.interactiveVideo.video.files[0].mime == 'video/YouTube') {
         video = $(window.h5player[0].frameElement.contentDocument.body).find("iframe")[0].contents().find("video")[0]
     }
-    console.log("loaded")
     loaded = true
 });
 chrome.runtime.onMessage.addListener(
