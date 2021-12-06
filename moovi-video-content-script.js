@@ -2,17 +2,14 @@ var injected_h5p_setter = `
 var h5p_tries = 0;
 function seth5p(){
 h5p_tries += 1
-if (window && h5p_tries<=60) {
+if (window && h5p_tries<=30) {
         if (window.h5player.H5PIntegration) {
-            console.log("Se ha encontrado un objeto h5p válido")
             document.dispatchEvent(new CustomEvent('h5p_updated', { detail: JSON.stringify(window.h5player.H5PIntegration) }));
-
-            
+            setTimeout(seth5p, 500);
 
         }
         else{
             console.log("No se ha encontrado un objeto h5p válido")
-
             setTimeout(seth5p, 500);
         }
 }}
@@ -36,8 +33,6 @@ var h5p_jsoncontent;
 document.addEventListener('h5p_updated', function (e) {
     h5p_integration_json = JSON.parse(e.detail)
 
-
-
     h5p_content = $.map(h5p_integration_json.contents, function (c, index) {
         if (c.hasOwnProperty("jsonContent")) {
             return c;
@@ -57,6 +52,12 @@ document.addEventListener('h5p_updated', function (e) {
             }
             return 0;
         })
+    if (h5p_jsoncontent.interactiveVideo.video.files[0].mime == 'video/mp4') {
+        video = $(window.h5player[0].frameElement.contentDocument.body).find("video")[0]
+    } else if (h5p_jsoncontent.interactiveVideo.video.files[0].mime == 'video/YouTube') {
+        video = $(window.h5player[0].frameElement.contentDocument.body).find("iframe")[0].contents().find("video")[0]
+    }
+    console.log("loaded")
     loaded = true
 });
 chrome.runtime.onMessage.addListener(
@@ -74,7 +75,6 @@ chrome.runtime.onMessage.addListener(
 
                     sendResponse({
                         loaded: loaded,
-
                         answers: $.map(h5p_interactions, function (interaction, index) {
                             if (interaction.libraryTitle == "True/False Question") {
                                 true_answer = interaction.action.params.correct
@@ -111,6 +111,14 @@ chrome.runtime.onMessage.addListener(
                                     })
                                 }
 
+                            } else if (interaction.libraryTitle == "Single Choice Set") {
+                                return {
+                                    "question_number": index,
+                                    "type": "single_choice",
+                                    "answer": interaction.action.params.questions[0]
+                                }
+
+
                             } else {
                                 return {
                                     "question_number": index,
@@ -119,19 +127,7 @@ chrome.runtime.onMessage.addListener(
                                 }
 
                             }
-                            // else if (interaction.libraryTitle == "Single Choice Set") {
-                            //     return {
-                            //         "question_number": index,
-                            //         "type": "single_choice",
-                            //         "answer": $.map(interaction.action.params.questions, function (question) {
-                            //             return question.match(/\*\S*\*/g).map(function (str) {
-                            //                 return str.slice(1, -1)
-                            //             })
-                            //         })
-                            //     }
 
-
-                            // }
 
                         }),
                         video_url: `${h5p_content.contentUrl}/${h5p_jsoncontent.interactiveVideo.video.files[0].path}`,
@@ -146,7 +142,6 @@ chrome.runtime.onMessage.addListener(
                 }
             } else if (request.action == "change_current_time" && request.seekbar_time_value) {
                 try {
-                    var video = $(window.h5player[0].frameElement.contentDocument.body).find("video")[0];
                     $(window.h5player[0].frameElement.contentDocument.body).find(".h5p-dialog")[0].style.display = "inherit"
                     $(window.h5player[0].frameElement.contentDocument.body).find(".h5p-dialog-wrapper")[0].style.display = "none"
                     $(window.h5player[0].frameElement.contentDocument.body).find(".h5p-dialog-wrapper").removeClass("h5p-hidden")
@@ -174,14 +169,6 @@ chrome.runtime.onMessage.addListener(
                         // $(window.h5player[0].frameElement.contentDocument.body).find(".h5p-dialog")[0].style.display = "none"
 
                     }
-
-
-
-
-
-
-
-
                     video.currentTime = request.seekbar_time_value - 0.3
 
                     video.play()
@@ -192,7 +179,6 @@ chrome.runtime.onMessage.addListener(
                 }
             } else if (request.action == "set_playback_rate" && request.playbackRate) {
                 try {
-                    var video = $(window.h5player[0].frameElement.contentDocument.body).find("video")[0];
                     console.log("Cambiando el playback rate")
                     video.playbackRate = request.playbackRate
 
@@ -201,7 +187,6 @@ chrome.runtime.onMessage.addListener(
                 }
             } else if (request.action == "end_video") {
                 try {
-                    var video = $(window.h5player[0].frameElement.contentDocument.body).find("video")[0];
                     video.currentTime = video.duration - 3
 
                 } catch (e) {
