@@ -1,6 +1,6 @@
 {
   "name": "Moovi H5P-video Supervisor by valonso",
-  "version": "3.0",
+  "version": "4.0",
   "description": "Extensión para poder manipular y obtener las respuestas de los videos interactivos H5P de moovi.uvigo.gal.",
   "browser_action": {
     "default_popup": "popup.html",

@@ -12,7 +12,7 @@ chrome.tabs.query({
     link.href = `${window.location.origin}/popupstyles.css`;
     link.id = "styles"
     document.head.appendChild(link)
-    if (tabs[0].url && !(tabs[0].url.includes("chrome://"))) {
+    if (tabs[0].url && !(tabs[0].url.includes("chrome://")) && !(tabs[0].url.includes("brave://"))) {
         console.log(tabs)
         if (tabs && tabs[0].url.includes("moovi.uvigo.gal")) {
             if (tabs[0].url.includes("h5p")) {
@@ -244,7 +244,7 @@ chrome.tabs.query({
                 console.log("Your url doesn't have h5p in it")
             }
         } else {
-            document.getElementById("interface_wrapper").parentNode.remove()
+            document.getElementById("interface_wrapper").remove()
 
             var unvalid_h1 = document.createElement("h1")
 
@@ -254,8 +254,6 @@ chrome.tabs.query({
             console.log("You are in the wrong domain")
         }
     } else {
-
-        document.getElementById("interface_wrapper").parentNode.remove()
 
         var unvalid_h1 = document.createElement("h1")
         unvalid_h1.className = "unvalid"
